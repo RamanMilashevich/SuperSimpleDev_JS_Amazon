@@ -1,7 +1,7 @@
 // import { cart as myCart } from "../data/cart.js"; // as - take the input and rename it to myCart
 
 import { cart } from "../data/cart.js";
-
+import { products } from "../data/products.js";
 
 let productsHTML = '';
 
