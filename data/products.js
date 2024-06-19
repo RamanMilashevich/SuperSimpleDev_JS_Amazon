@@ -1,5 +1,25 @@
 const products = [
   {
+    id: "id1-Backpack",
+    image: "images/products/backpack.jpg",
+    name: "first product",
+    rating: {
+      stars: 4,
+      count: 876
+    },
+    priceCents: 699
+  },
+  {
+    id: "id2-Backpack",
+    image: "images/products/umbrella.jpg",
+    name: "second product",
+    rating: {
+      stars: 3.5,
+      count: 67
+    },
+    priceCents: 1099
+  },
+  {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     image: "images/products/athletic-cotton-socks-6-pairs.jpg",
     name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
