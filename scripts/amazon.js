@@ -1,7 +1,8 @@
 // import { cart as myCart } from "../data/cart.js"; // as - take the input and rename it to myCart
 
-import { cart } from "../data/cart.js";
+import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
+
 
 let productsHTML = '';
 
@@ -61,61 +62,30 @@ products.forEach((product) => {
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
-// let addedToTomeout;
+function updateCartQuaantity() {
+  let cartQuantity = 0; // Accumulator в котором мы храним общее количество товаров для нашей корзины
+  cart.forEach((cartItem) => { 
+    cartQuantity += cartItem.quantity;
+  });
+
+  document.querySelector('.js-cart-quantity')
+    .innerHTML = cartQuantity; 
+}
+
 const addedMessagTimeouts = {};
 
 document.querySelectorAll('.js-add-to-card')
   .forEach((button) => {
     button.addEventListener('click', () => {
-      
       // const productId = button.dataset.productId;
       const {productId} = button.dataset; // shortcut
-
-      let matchingItem;
-
-      cart.forEach((item) => {
-        if(productId === item.productId) {
-          // console.log(productId)// property
-          // console.log(item.productId); // property from object item from forEach(item)
-          // console.log(item); // object
-          matchingItem = item; // Запись объекта в пустую переменную
-        }
-      });
-
-      console.log(matchingItem);
-
-      const quantitySelector = document.querySelector(
-        `.js-quantity-selector-${productId}`
-      ).value; //Получение цифры из <selector> внутри есть разные <option> которые размещены в селекторе и селектор с ними связан, когда мы получаем селектор он имеет непосредственный доступ к опциям выбора, с помощью метода .value, мы получаем значение из селектора
+      addToCart(productId);
+      updateCartQuaantity();
       
-      const quantity = Number(quantitySelector); // Преобразование полученного значения в тип: number
-      
-      if(matchingItem) { // проверка если matchinItem=true
-        matchingItem.quantity += quantity; // прибавляем значение полученное из селектора 
-      } else { // Или загружаем в наш массив cart пару ключ productId вместе с значением которое было преобразованно выше. так-же quantity это значение которое было на тот момент при нажатии на add to cart в selector. Условие срабатывает только при несуществующем matchingItem = false
-        cart.push({
-          productId,
-          quantity
-        });
-      };
-      
-      
-      // console.log(cart);
-      let cartQuantity = 0; // Accumulator в котором мы храним общее количество товаров для нашей корзины
-
-      cart.forEach((item) => { // с помощью forEach мы заглядываем в каждый объект item и если есть объект к пустому аккуммулятору cart quantity прибавляем значения из перебираемого массива с вомощью item.quantity (даёт доступ к количество экземпляров в объекте, прибавляем это значение)
-        cartQuantity += item.quantity;
-      });
-
-      document.querySelector('.js-cart-quantity')
-        .innerHTML = cartQuantity;  // Добавляем это значение на страницу 
-        
       const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`); // Получаем наш уникальный div с помощью уникального класса
       addedMessage.classList.add('added-to-cart-visible'); // добавляем класс видимости для отображения иконки добавленно 
 
       const previousTimeoutId = addedMessagTimeouts[productId];
-      console.log(previousTimeoutId);
-      
       if(previousTimeoutId) {
         clearInterval(previousTimeoutId)
       };
@@ -125,16 +95,5 @@ document.querySelectorAll('.js-add-to-card')
       }, 2000);
 
       addedMessagTimeouts[productId] = timeoutId;
-      
-      
-      // if(addedMessage.classList.contains('added-to-cart-visible')) {
-      //   clearTimeout(addedToTomeout);
-      //   addedToTomeout = setTimeout(() => {
-      //     addedMessage.classList.remove('added-to-cart-visible');
-      //     console.log('here')
-      //   }, 2000);
-        
-      // } // my solution 
-      
   });
 });
