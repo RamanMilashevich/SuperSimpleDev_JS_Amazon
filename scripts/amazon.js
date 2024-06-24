@@ -72,7 +72,9 @@ function updateCartQuaantity() {
 
   document.querySelector('.js-cart-quantity')
     .innerHTML = cartQuantity; 
+    
 }
+updateCartQuaantity();
 
 const addedMessagTimeouts = {};
 
