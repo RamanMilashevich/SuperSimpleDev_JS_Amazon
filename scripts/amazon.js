@@ -64,11 +64,12 @@ products.forEach((product) => {
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
-const cartQuantity = calculateCartQuantity();
+function updateCartQuaantity() {
+  const cartQuantity = calculateCartQuantity();
 
-document.querySelector('.js-cart-quantity')
-  .innerHTML = cartQuantity; 
-    
+  document.querySelector('.js-cart-quantity')
+    .innerHTML = cartQuantity; 
+};
 
 updateCartQuaantity();
 

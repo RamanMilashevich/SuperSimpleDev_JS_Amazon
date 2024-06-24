@@ -113,8 +113,9 @@ document.querySelectorAll('.js-delete-link')
 
 
 
-  const cartQuantity = calculateCartQuantity();
-  document.querySelector('.js-return-to-home-link').innerHTML = `${cartQuantity} items`;
-
+  function updateCartQuantity() {
+    const cartQuantity = calculateCartQuantity();
+    document.querySelector('.js-return-to-home-link').innerHTML = `${cartQuantity} items`;
+  };
   
   updateCartQuantity();
