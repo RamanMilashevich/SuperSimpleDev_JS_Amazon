@@ -86,7 +86,7 @@ function deliveryOptionsHTML(matchingProduct) {
     ? 'FREE'
     : `$${formatCurrency(deliveryOption.priceCents)} -`;
 
-    const isChecked = deliveryOption.id === cartItem.deliveryOptionID
+    const isChecked = deliveryOption.id === cartItem.deliveryOptionID;
 
 
     html +=`
