@@ -88,4 +88,19 @@ export function calculateCartQuantity() {
   saveToStorage();
 };
 
+export function updateDeliveryOption(productId, deliveryOptionId) {
+  let matchingItem;
 
+  cart.forEach((cartItem) => {
+    if(productId === cartItem.productId) {
+      // console.log(productId)// property
+      // console.log(item.productId); // property from object item from forEach(item)
+      // console.log(item); // object
+      matchingItem = cartItem; // Запись объекта в пустую переменную
+    }
+  });
+
+  matchingItem.deliveryOptionId = deliveryOptionId;
+
+  saveToStorage();
+}; 
