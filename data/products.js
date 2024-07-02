@@ -13,26 +13,6 @@ export const products = [
       "sports",
       "apparel"
     ]
-  },  
-  {
-    id: "id1-Backpack",
-    image: "images/products/backpack.jpg",
-    name: "first product",
-    rating: {
-      stars: 4,
-      count: 876
-    },
-    priceCents: 699
-  },
-  {
-    id: "id2-Backpack",
-    image: "images/products/umbrella.jpg",
-    name: "second product",
-    rating: {
-      stars: 3.5,
-      count: 67
-    },
-    priceCents: 1099
   },
   {
     id: "15b6fc6f-327a-4ec4-896f-486349e85a3d",

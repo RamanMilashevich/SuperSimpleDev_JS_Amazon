@@ -1,10 +1,6 @@
-// import { cart as myCart } from "../data/cart.js"; // as - take the input and rename it to myCart
-
-import { cart, addToCart, calculateCartQuantity } from "../data/cart.js";
-import { products } from "../data/products.js";
-import { formatCurrency } from "./utils/money.js";
-
-
+import {cart, addToCart} from '../data/cart.js';
+import {products} from '../data/products.js';
+import {formatCurrency} from './utils/money.js';
 
 let productsHTML = '';
 
@@ -33,7 +29,7 @@ products.forEach((product) => {
       </div>
 
       <div class="product-quantity-container">
-        <select class="js-quantity-selector-${product.id}">
+        <select>
           <option selected value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -49,12 +45,12 @@ products.forEach((product) => {
 
       <div class="product-spacer"></div>
 
-      <div class="added-to-cart js-added-to-cart-${product.id}">
+      <div class="added-to-cart">
         <img src="images/icons/checkmark.png">
         Added
       </div>
 
-      <button class="add-to-cart-button button-primary js-add-to-card"
+      <button class="add-to-cart-button button-primary js-add-to-cart"
       data-product-id="${product.id}">
         Add to Cart
       </button>
@@ -64,37 +60,22 @@ products.forEach((product) => {
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
-function updateCartQuaantity() {
-  const cartQuantity = calculateCartQuantity();
+function updateCartQuantity() {
+  let cartQuantity = 0;
+
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
 
   document.querySelector('.js-cart-quantity')
-    .innerHTML = cartQuantity; 
-};
+    .innerHTML = cartQuantity;
+}
 
-updateCartQuaantity();
-
-const addedMessagTimeouts = {};
-
-document.querySelectorAll('.js-add-to-card')
+document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
     button.addEventListener('click', () => {
-      // const productId = button.dataset.productId;
-      const {productId} = button.dataset; // shortcut
+      const productId = button.dataset.productId;
       addToCart(productId);
-      updateCartQuaantity();
-      
-      const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`); // Получаем наш уникальный div с помощью уникального класса
-      addedMessage.classList.add('added-to-cart-visible'); // добавляем класс видимости для отображения иконки добавленно 
-
-      const previousTimeoutId = addedMessagTimeouts[productId];
-      if(previousTimeoutId) {
-        clearInterval(previousTimeoutId)
-      };
-
-      const timeoutId = setTimeout(() => {
-        addedMessage.classList.remove('added-to-cart-visible')
-      }, 2000);
-
-      addedMessagTimeouts[productId] = timeoutId;
+      updateCartQuantity();
+    });
   });
-});
